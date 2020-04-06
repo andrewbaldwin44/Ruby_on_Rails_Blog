@@ -5,6 +5,10 @@
     <%= link_to tag.name, tag_path(tag) %>
   <% end %>
 </p>
+<% (0...@article.images.count).each do |image| %>
+  <%= image_tag(@article.thumbnail(image)) %>
+<% end %>
+
 <p><%= @article.body %></p>
 <h3>Comments (<%= @article.comments.size %>)</h3>
 <%= render partial: 'articles/comment', collection: @article.comments %>
