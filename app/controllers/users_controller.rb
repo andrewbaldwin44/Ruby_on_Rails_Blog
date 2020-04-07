@@ -12,7 +12,7 @@ class UsersController < ApplicationController
   end
 
   def admin_access
-    unless current_user && current_user.email == "admin"
+    unless current_user && current_user.username == "admin"
       redirect_to root_path
       return false
     end

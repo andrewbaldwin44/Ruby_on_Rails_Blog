@@ -2,4 +2,9 @@
   <h4>Username: <%= comment.user_name %></h4>
   <p>Posted <%= distance_of_time_in_words(Time.now, comment.created_at) %> ago</p>
   <p class="comment"><%= comment.body %></p>
+  <% if current_user.username == comment.user_name %>
+    <%= link_to "Edit", edit_comment_path %> |
+    <%= link_to "Delete", comment_path(comment), method: :delete,
+        data: {confirm: "Are you sure you want to delete your comment?"} %>
+  <% end %>
 </div>

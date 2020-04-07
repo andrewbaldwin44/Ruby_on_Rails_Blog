@@ -35,16 +35,10 @@ ActiveRecord::Schema.define(version: 2020_04_06_191717) do
 
   create_table "articles", force: :cascade do |t|
     t.string "title"
+    t.string "author"
     t.text "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "attachments", force: :cascade do |t|
-    t.integer "article_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["article_id"], name: "index_attachments_on_article_id"
   end
 
   create_table "comments", force: :cascade do |t|

@@ -1,4 +1,5 @@
 <h1><%= @article.title %></h1>
+<h2>By: <%= @article.author %></h2>
 <p>
   Tags:
   <% @article.tags.each do |tag| %>
@@ -8,12 +9,14 @@
 <% (0...@article.images.count).each do |image| %>
   <%= image_tag(@article.thumbnail(image)) %>
 <% end %>
-
 <p><%= @article.body %></p>
 <h3>Comments (<%= @article.comments.size %>)</h3>
 <%= render partial: 'articles/comment', collection: @article.comments %>
+<h3>Post a Comment</h3>
 <%= render partial: 'comments/form' %>
-<%= link_to "Edit", edit_article_path(@article) %>
-<%= link_to "Delete", article_path(@article), method: :delete,
-    data: {confirm: "Are you sure you want to delete this article?"} %>
-<%= link_to "<< Back to Articles List", articles_path %>
+<%= link_to "<< Back to Articles", articles_path %>
+<% if logged_in? && current_user.username == @article.author %>
+  | <%= link_to "Edit", edit_article_path(@article) %> |
+  <%= link_to "Delete", article_path(@article), method: :delete,
+      data: {confirm: "Are you sure you want to delete this article?"} %>
+<% end %>
