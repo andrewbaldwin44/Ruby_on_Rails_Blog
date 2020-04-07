@@ -11,3 +11,18 @@
 
 <%= link_to "Create new Article", new_article_path, class: "new_article" %>
 <%= link_to "<< Tags >>", tags_path %>
+
+<div id="container">
+  <div id="content">
+   <hr>
+   <h6>
+     <% if logged_in? %>
+       <%= "Logged in as #{current_user.email}" %>
+       <%= link_to "(logout)", logout_path %>
+     <% else %>
+       <%= link_to "Login", login_path %><br>
+       <%= link_to "Create New Account", new_user_path %>
+     <% end %>
+   </h6>
+ </div>
+</div>
