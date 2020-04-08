@@ -1,7 +1,13 @@
 class CommentsController < ApplicationController
   include CommentsHelper
+
+  before_action :logged_in, only: [:create]
+  before_action :authorized_comment_user, only: [:edit, :update, :destroy]
+  before_action :admin_access, only: [:index]
+
   def index
   end
+
   def create
     @comment = Comment.new(comment_params)
     @comment.user_name = current_user.username

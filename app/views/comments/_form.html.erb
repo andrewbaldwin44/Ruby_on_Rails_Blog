@@ -12,5 +12,12 @@
     </p>
   <% end %>
 <% else %>
-  <%= link_to "Please login to comment", login_path %><br><br>
+  <p>
+    Please
+    <%= link_to "login", login_path %>
+    or
+    <%= link_to "Create a new Account", new_user_path %>
+    to Comment
+    <br><br>
+  </p>
 <% end %>

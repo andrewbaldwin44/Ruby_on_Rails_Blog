@@ -1,22 +1,8 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
-  before_action :logged_in, only: [:new]
+  before_action :logged_out, only: [:new]
   before_action :admin_access, only: [:index]
-
-  def logged_in
-    if current_user
-      redirect_to root_path
-      return false
-    end
-  end
-
-  def admin_access
-    unless current_user && current_user.username == "admin"
-      redirect_to root_path
-      return false
-    end
-  end
 
   # GET /users
   # GET /users.json
@@ -44,10 +30,16 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     respond_to do |format|
+
       if @user.save
         format.html { redirect_to @user, notice: 'User was successfully created.' }
         format.json { render :show, status: :created, location: @user }
       else
+        format.html { render :new }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
+      rescue ActiveRecord::RecordNotUnique
+        flash.notice = "Email already exists! Please login."
         format.html { render :new }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
@@ -88,4 +80,3 @@ class UsersController < ApplicationController
     def user_params
       params.require(:user).permit(:username, :email, :password, :password_confirmation)
     end
-end

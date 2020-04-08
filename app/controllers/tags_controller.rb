@@ -1,4 +1,6 @@
 class TagsController < ApplicationController
+  before_action :admin_access, only: [:edit, :update, :destroy]
+
   include TagsHelper
   def index
     @tags = Tag.all
