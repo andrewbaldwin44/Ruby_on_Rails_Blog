@@ -9,7 +9,9 @@
 <% (0...@article.images.count).each do |image| %>
   <%= image_tag(@article.thumbnail(image)) %>
 <% end %>
-<pre><%= @article.body %></pre>
+<div id="article_body">
+  <pre><%= @article.body %></pre>
+</div>
 <h3>Comments (<%= @article.comments.size %>)</h3>
 <%= render partial: 'articles/comment', collection: @article.comments %>
 <h3>Post a Comment</h3>
