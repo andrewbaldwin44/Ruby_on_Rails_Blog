@@ -5,7 +5,7 @@
 
 ## Demo
 
-[View The Live Demo](https://vast-everglades-75415.herokuapp.com/)
+[View The Live Demo](https://andrewbaldwin-rails-blogger.herokuapp.com/)
 
 ## About
 This app was created following the tutorial on [Jumpstartlab](http://tutorials.jumpstartlab.com/projects/blogger.html).
