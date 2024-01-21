@@ -1,0 +1,12 @@
+<div class="border-b border-gray-300 mb-4 pb-4">
+  <p>Posted <%= distance_of_time_in_words(Time.now, comment.created_at) %> ago</p>
+  <p class="text-gray-800 font-bold mb-2"><%= comment.user.username %></p>
+  <p class="text-gray-700 mb-2"><%= comment.content %></p>
+
+  <% if current_user && current_user == comment.user %>
+    <div class="flex">
+      <%= link_to "Edit", edit_post_comment_path(comment.post, comment), class: "text-blue-500 hover:underline mr-2" %>
+      <%= button_to "Delete", [comment.post, comment], method: :delete, data: { confirm: "Are you sure?" }, class: "text-red-500 hover:underline" %>
+    </div>
+  <% end %>
+</div>

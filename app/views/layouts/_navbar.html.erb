@@ -1,0 +1,16 @@
+<nav class="bg-red-800 p-4 text-white">
+  <div class="container mx-auto flex justify-between items-center">
+    <div>
+      <%= link_to 'Rails Blog', root_path, class: 'text-2xl font-bold' %>
+    </div>
+
+    <% if signed_in? %>
+      <%= link_to "View Profile", user_path(current_user) %>
+    <% else %>
+      <div>
+        <%= link_to "Login", new_session_path %>
+        <%= link_to 'Sign Up', new_user_path, class: 'ml-4' %>
+      </div>
+    <% end %>
+  </div>
+</nav>

@@ -1,0 +1,19 @@
+<div id="<%= dom_id post %>" class="px-8 py-4 border border-gray-800 rounded">
+  <p>
+    <strong>Title:</strong>
+    <%= post.title %>
+  </p>
+
+  <p>
+    <strong>Author:</strong>
+    <%= post.author %>
+  </p>
+
+  <p>
+    <strong>Content:</strong>
+    <%= post.content %>
+  </p>
+
+  <p class="text-gray-500">Posted <%= time_ago_in_words(post.created_at) %> ago</p>
+
+</div>

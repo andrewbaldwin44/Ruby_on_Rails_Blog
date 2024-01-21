@@ -1,0 +1,26 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @post %>
+
+<h3 class="text-xl font-bold mb-4">Comments (<%= @post.comments.size %>)</h3>
+
+<%= render @post.comments %>
+
+<% if signed_in? %>
+  <%= render "comments/form", post: @post %>
+<% else %>
+  <p class="text-red-500">You must be signed in to leave a comment. <%= link_to "Sign Up", new_user_path %> or <%= link_to "Login", new_session_path %></p>
+<% end %>
+
+<div>
+  <div>
+    <%= link_to "Back to posts", posts_path %>
+  </div>
+
+  <div class="flex">
+    <% if current_user && @post.user == current_user %>
+      <%= link_to "Edit this post", edit_post_path(@post) %> |
+      <%= button_to "Destroy this post", @post, method: :delete %>
+    <% end %>
+  </div>
+</div>

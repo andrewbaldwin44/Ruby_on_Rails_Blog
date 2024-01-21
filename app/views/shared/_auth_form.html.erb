@@ -1,0 +1,53 @@
+<div class="mx-auto md:w-2/3 w-full">
+
+  <h1 class="font-bold text-2xl mb-4"><%= sign_up ? "Sign Up" : "Login" %></h1>
+
+  <div class="shadow px-4 py-2 border rounded-lg border-gray-200">
+    <%= form_with(model: user) do |form| %>
+      <div class="flex flex-col gap-y-4">
+        <% if sign_up %>
+          <div>
+            <%= form.label :username %>
+            <%= form.text_field :username, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+          </div>
+        <% end %>
+
+        <div>
+          <%= form.label :email %>
+          <%= form.text_field :email, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+        </div>
+
+        <% if sign_up %>
+          <div>
+            <%= form.label :profilePicture %>
+            <%= form.text_area :profilePicture, rows: 4, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+          </div>
+        <% end %>
+
+        <div>
+          <%= form.label :password %>
+          <%= form.password_field :password, id: 'password', class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+        </div>
+
+        <% if user and user.errors.any? %>
+          <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
+            <ul>
+              <% user.errors.each do |error| %>
+                <li><%= error.full_message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% elsif @login_error.present? %>
+          <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
+            <ul>
+              <li><%= @login_error %></li>
+            </ul>
+          </div>
+        <% end %>
+
+        <div>
+          <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
