@@ -3,9 +3,9 @@
 one:
   username: MyString
   email: MyString
-  profilePicture: MyText
+  profile_picture: MyText
 
 two:
   username: MyString
   email: MyString
-  profilePicture: MyText
+  profile_picture: MyText

@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[ show edit update destroy ]
+  before_action :validate_profile_picture, only: [:create]
 
   # GET /users/1 or /users/1.json
   def show
@@ -25,10 +26,12 @@ class UsersController < ApplicationController
     new_user_params = {
       email: user_params[:email],
       username: user_params[:username],
-      profilePicture: user_params[:profilePicture],
     }
 
+    profile_picture = user_params[:profile_picture]
+
     supabase_service = SupabaseService.new
+
     supabase_response = supabase_service.sign_up(user_params[:email], user_params[:password])
 
     if supabase_response.success?
@@ -38,6 +41,11 @@ class UsersController < ApplicationController
         if @user.save
           session[:user_id] = @user.id
 
+          if profile_picture
+            profile_picture_public_url = supabase_service.upload_image(user_params[:profile_picture], user_params[:username])
+            @user.update({profile_picture: profile_picture_public_url})
+          end
+
           format.html { redirect_to user_url(@user), notice: "User successfully created." }
           format.json { render :show, status: :created, location: @user }
         else
@@ -46,10 +54,7 @@ class UsersController < ApplicationController
         end
       end
     else
-      supabase_error_message = supabase_response.parsed_response["msg"] || "Something went wrong. Please try again."
-
-      @user = User.new(new_user_params)
-      @user.errors.add(:base, supabase_error_message)
+      @login_error = supabase_response.parsed_response["msg"] || "Something went wrong. Please try again."
 
       respond_to do |format|
         format.html { render :new, status: :unauthorized }
@@ -89,6 +94,19 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:username, :password, :email, :profilePicture)
+      params.require(:user).permit(:username, :password, :email, :profile_picture)
+    end
+
+    def validate_profile_picture
+      allowed_content_types = ['image/jpeg', 'image/png']
+      profile_picture = user_params[:profile_picture]
+      unless profile_picture.nil? || allowed_content_types.include?(profile_picture.content_type)
+        @login_error = 'Invalid file format. Please upload a valid image.'
+
+        respond_to do |format|
+          format.html { render :new, status: :unprocessable_entity }
+          format.json { render json: @login_error, status: :unprocessable_entity }
+        end
+      end
     end
 end

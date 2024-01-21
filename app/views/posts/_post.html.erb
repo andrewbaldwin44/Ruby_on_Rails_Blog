@@ -4,10 +4,17 @@
     <%= post.title %>
   </p>
 
-  <p>
-    <strong>Author:</strong>
-    <%= post.author %>
-  </p>
+  <div class="flex items-center my-3">
+    <strong class="mr-2">Author:</strong>
+
+    <% if post.user.profile_picture.present? %>
+      <%= image_tag post.user.profile_picture, class: "rounded-full h-8 w-8 object-cover mr-2" %>
+    <% else %>
+      <%= image_tag "default_profile_picture.png", class: "rounded-full h-8 w-8 object-cover mr-2" %>
+    <% end %>
+
+    <%= post.user.username %>
+  </div>
 
   <p>
     <strong>Content:</strong>
@@ -15,5 +22,4 @@
   </p>
 
   <p class="text-gray-500">Posted <%= time_ago_in_words(post.created_at) %> ago</p>
-
 </div>

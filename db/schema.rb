@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_21_031116) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_21_153758) do
   create_schema "auth"
   create_schema "extensions"
   create_schema "graphql"
@@ -56,7 +56,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_21_031116) do
   create_table "users", force: :cascade do |t|
     t.string "username", null: false
     t.string "email", null: false
-    t.text "profilePicture"
+    t.text "profile_picture"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true

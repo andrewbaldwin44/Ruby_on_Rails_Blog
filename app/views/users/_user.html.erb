@@ -10,8 +10,12 @@
   </p>
 
   <p class="my-5">
-    <strong class="block font-medium mb-1">Profilepicture:</strong>
-    <%= user.profilePicture %>
+    <strong class="block font-medium mb-1">Profile Picture:</strong>
+    <% if user.profile_picture.present? %>
+      <%= image_tag user.profile_picture, class: "rounded-full h-16 w-16 object-cover" %>
+    <% else %>
+      <%= image_tag "default_profile_picture.png", class: "rounded-full h-16 w-16 object-cover" %>
+    <% end %>
   </p>
 
   <% if action_name != "show" %>

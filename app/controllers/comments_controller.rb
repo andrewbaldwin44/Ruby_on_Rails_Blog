@@ -2,7 +2,7 @@ class CommentsController < ApplicationController
   before_action :set_post, only: [:edit, :create]
   before_action :set_comment, only: [:edit, :update, :destroy]
   before_action :authenticate_user!
-  before_action :check_comment_owner
+  before_action :check_comment_owner, only: [:edit, :update, :destroy]
 
   def edit
   end

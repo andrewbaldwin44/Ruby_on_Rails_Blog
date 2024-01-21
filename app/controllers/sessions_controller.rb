@@ -5,7 +5,6 @@ class SessionsController < ApplicationController
   def create
     supabase_service = SupabaseService.new
     supabase_response = supabase_service.sign_in(params[:email], params[:password])
-    puts supabase_response
 
     if supabase_response.success?
       user_data = supabase_response.parsed_response['user']
