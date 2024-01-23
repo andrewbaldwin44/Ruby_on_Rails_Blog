@@ -78,3 +78,5 @@ gem "tailwindcss-rails", "~> 2.3"
 gem "supabase", "~> 0.1.0"
 
 gem "httparty", "~> 0.21.0"
+
+gem "redcarpet", "~> 3.6"

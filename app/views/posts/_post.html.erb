@@ -16,10 +16,13 @@
     <%= post.user.username %>
   </div>
 
-  <p>
+  <div >
     <strong>Content:</strong>
-    <%= post.content %>
-  </p>
+    <div class="markdown">
+
+      <%= render_markdown(post.content) %>
+    </div>
+  </div>
 
   <p class="text-gray-500">Posted <%= time_ago_in_words(post.created_at) %> ago</p>
 </div>

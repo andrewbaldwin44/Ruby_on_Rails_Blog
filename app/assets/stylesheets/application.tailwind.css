@@ -8,5 +8,48 @@
   .btn-primary {
     @apply py-2 px-4 bg-blue-200;
   }
+
+  .markdown {
+    h1 {
+      @apply text-3xl
+    }
+
+    h2 {
+      @apply text-2xl
+    }
+    
+    h3 {
+      @apply text-lg
+    }
+
+    h4 {
+      @apply text-base
+    }
+
+    h5 {
+      @apply text-sm
+    }
+
+    h6 {
+      @apply text-xs
+    }
+
+    blockquote {
+      @apply border-l-4 border-gray-200 bg-gray-100 pl-4 italic
+    }
+
+    ul {
+      @apply list-disc pl-4
+    }
+
+    ol {
+      @apply list-decimal pl-4
+    }
+
+    .link {
+      @apply text-blue-500 underline
+    }
+  }
 }
+
 
