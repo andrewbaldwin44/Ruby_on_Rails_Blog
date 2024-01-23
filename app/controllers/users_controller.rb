@@ -29,6 +29,7 @@ class UsersController < ApplicationController
     }
 
     profile_picture = user_params[:profile_picture]
+    puts profile_picture
 
     supabase_service = SupabaseService.new
 
@@ -43,6 +44,7 @@ class UsersController < ApplicationController
 
           if profile_picture
             profile_picture_public_url = supabase_service.upload_image(profile_picture, user_params[:username])
+            puts profile_picture_public_url
             @user.update({profile_picture: profile_picture_public_url})
           end
 
@@ -109,8 +111,8 @@ class UsersController < ApplicationController
 
     def validate_profile_picture
       allowed_content_types = ['image/jpeg', 'image/png']
-      profile_picture = user_params[:profile_picture]
-      unless profile_picture.nil? || allowed_content_types.include?(profile_picture.content_type)
+
+      if user_params.key?(:profile_picture) && allowed_content_types.exclude?(user_params[:profile_picture].content_type)
         @login_error = 'Invalid file format. Please upload a valid image.'
 
         respond_to do |format|
