@@ -42,7 +42,7 @@ class UsersController < ApplicationController
           session[:user_id] = @user.id
 
           if profile_picture
-            profile_picture_public_url = supabase_service.upload_image(user_params[:profile_picture], user_params[:username])
+            profile_picture_public_url = supabase_service.upload_image(profile_picture, user_params[:username])
             @user.update({profile_picture: profile_picture_public_url})
           end
 
@@ -65,8 +65,18 @@ class UsersController < ApplicationController
 
   # PATCH/PUT /users/1 or /users/1.json
   def update
+    edit_user_params = {
+      username: user_params[:username],
+    }
+
+    profile_picture = user_params[:profile_picture]
+    if profile_picture
+      supabase_service = SupabaseService.new
+      edit_user_params[:profile_picture] = supabase_service.upload_image(profile_picture, user_params[:username])
+    end
+
     respond_to do |format|
-      if @user.update(user_params)
+      if @user.update(edit_user_params)
         format.html { redirect_to user_url(@user), notice: "User was successfully updated." }
         format.json { render :show, status: :ok, location: @user }
       else
