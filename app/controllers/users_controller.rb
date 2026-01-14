@@ -29,7 +29,6 @@ class UsersController < ApplicationController
     }
 
     profile_picture = user_params[:profile_picture]
-    puts profile_picture
 
     supabase_service = SupabaseService.new
 

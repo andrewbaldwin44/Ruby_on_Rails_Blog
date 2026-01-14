@@ -17,7 +17,7 @@ class SupabaseService
 
     def upload_image(file, user_id)
       extension = File.extname(file.original_filename)
-      filename = "#{SecureRandom.uuid}#{extension}"
+      filename = "#{SecureRandom.uuid_v4}#{extension}"
       storage_path = "/storage/v1/object"
 
       response = make_supabase_request("#{storage_path}/#{@public_storage_bucket}/#{user_id}/#{filename}", {file: file}, is_form: true)
