@@ -21,7 +21,6 @@ default: &default
   advisory_locks: false
   prepared_statements: false
   url: <%= Rails.application.credentials.POSTGRES_URL %>
-  ssl_mode: require
 
 development:
   <<: *default
